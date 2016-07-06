@@ -20,11 +20,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Set up the Parse SDK
         let configuration = ParseClientConfiguration {
-            $0.applicationId = APP_ID
-            $0.server = SERVER_URL
+            $0.applicationId = "makestagram"
+            $0.server = "https://makestagram-parse-makeschool.herokuapp.com/parse"
         }
         Parse.initializeWithConfiguration(configuration)
         
+        do {
+            try PFUser.logInWithUsername("test", password: "test")
+        } catch {
+            print("Unable to log in")
+        }
+        
+        if let currentUser = PFUser.currentUser() {
+            print("\(currentUser.username!) logged in successfully")
+        } else {
+            print("No logged in user :(")
+        }
         return true
     }
 
